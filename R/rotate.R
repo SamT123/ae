@@ -2,6 +2,13 @@
 main = function() {
     message("ROTATE TREE")
 
+    .libPaths(
+        c(
+            "/home/samt123/R/x86_64-pc-linux-gnu-library/4.2",
+            .libPaths()
+        )
+    )
+
     args <- commandArgs(trailingOnly = TRUE)
 
     inphy.txt = args[[1]]

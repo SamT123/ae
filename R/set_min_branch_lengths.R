@@ -3,6 +3,13 @@
 main = function() {
   message("SET MINIMUM BRANCH LENGTHS")
 
+  .libPaths(
+    c(
+      "/home/samt123/R/x86_64-pc-linux-gnu-library/4.2",
+      .libPaths()
+    )
+  )
+
   args <- commandArgs(trailingOnly = TRUE)
 
   infile = args[[1]]

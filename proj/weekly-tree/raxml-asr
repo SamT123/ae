@@ -10,8 +10,8 @@ sRandomGen = random.SystemRandom()
 def main(args: argparse.Namespace):
     argv = '"' + '" "'.join(sys.argv) + '"'
     working_dir = Path(args.subdir).resolve()
-    source_fas = working_dir.joinpath("source.fas")
-    source_tree = Path(working_dir.joinpath("cmaple_tree-rot.txt").open().read().strip()).resolve()
+    source_fas = working_dir.joinpath("source-trim.fas")
+    source_tree = Path(working_dir.joinpath("cmaple_tree-rot-trim.txt").open().read().strip()).resolve()
 
     if os.fork():
         # parent

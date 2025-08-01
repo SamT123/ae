@@ -10,8 +10,9 @@ submit_tree()
     (
         ${AE_ROOT}/proj/weekly-tree/make-cmaple --node ${NODE} ${SUBTYPE} &&
             ${AE_ROOT}/R/rotate.R ${SUBTYPE}/cmaple_tree.txt ${SUBTYPE}/source.fas &&
+            ${AE_ROOT}/R/tree_trim.R ${SUBTYPE} ${SUBTYPE}/cmaple_tree-rot.txt ${SUBTYPE}/source.fas &&
             ${AE_ROOT}/proj/weekly-tree/raxml-asr --node ${NODE} ${SUBTYPE} &&
-            ${AE_ROOT}/R/collapse_short_branches.R ${SUBTYPE}/cmaple_tree-rot.txt 0.00005 &&
+            ${AE_ROOT}/R/collapse_short_branches.R ${SUBTYPE}/cmaple_tree-rot-trim.txt 0.00005 &&
             ${AE_ROOT}/proj/weekly-tree/pdf ${SUBTYPE}
     ) >${SUBTYPE}/submit.log 2>&1 &
 }
