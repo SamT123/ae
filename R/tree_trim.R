@@ -87,6 +87,7 @@ main = function() {
   # trim ------------------------------------------------------------
   if (!trim) {
     trimmed_phy = phy
+    trimmed_seqs = fa
   } else {
     tree_and_sequences = list(
       tree = phy,
@@ -146,21 +147,21 @@ main = function() {
     trimmed_phy = ape::ladderize(trimmed_phy, right = F)
     trimmed_phy$edge.length = trimmed_phy$edge.length / mean(nchar(fa)) # per nt
     trimmed_seqs = fa[names(fa) %in% trimmed_phy$tip.label]
-
-    message("Writing tree")
-    ape::write.tree(trimmed_phy, file = outphy)
-
-    message("Writing ", outphy.txt)
-    writeLines(outphy, outphy.txt)
-
-    message("Writing ", outfasta)
-    seqUtils::write_fast_fasta(
-      seqs = unname(trimmed_seqs),
-      names = names(trimmed_seqs),
-      path = outfasta
-    )
-    return(0)
   }
+
+  message("Writing tree")
+  ape::write.tree(trimmed_phy, file = outphy)
+
+  message("Writing ", outphy.txt)
+  writeLines(outphy, outphy.txt)
+
+  message("Writing ", outfasta)
+  seqUtils::write_fast_fasta(
+    seqs = unname(trimmed_seqs),
+    names = names(trimmed_seqs),
+    path = outfasta
+  )
+  return(0)
 }
 
 main()
