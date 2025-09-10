@@ -66,10 +66,10 @@ main = function() {
     mutation = NA_character_
     min_tips = 0
   } else if (subtype == "bvic") {
-    trim = F
-    strain = NA_character_
-    mutation = NA_character_
-    min_tips = 0
+    trim = T
+    strain = "OMAN/2651/2019"
+    mutation = "127T"
+    min_tips = 15000
   } else if (subtype == "byam") {
     trim = F
     strain = NA_character_
@@ -81,7 +81,7 @@ main = function() {
 
   # read input files ------------------------------------------------------------
 
-  phy = castor::read_tree(file = inphy)
+  phy = ape::read.tree(file = inphy)
   fa = seqUtils::fast_fasta(infasta)
 
   # trim ------------------------------------------------------------
@@ -99,8 +99,8 @@ main = function() {
 
     usher_tree_and_sequences = convergence::addASRusher(
       tree_and_sequences,
-      nuc_ref = seqUtils::alaska_232_2015_nts,
-      aa_ref = seqUtils::alaska_232_2015_aas
+      nuc_ref = fa[1],
+      aa_ref = as.character(Biostrings::translate(Biostrings::DNAString(fa[1])))
     )
 
     usher_tree_and_sequences$tree_tibble$nd = c(
