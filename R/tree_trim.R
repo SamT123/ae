@@ -54,6 +54,10 @@ main = function() {
     fs::path_ext(infasta)
   )
 
+  if (all(fs::file_exists(outphy, outphy.txt, outfasta))) {
+    message("All output files already exist. Not remaking.")
+  }
+
   # specify trim ----------------------------------------------------
   if (subtype == "h3") {
     trim = T
