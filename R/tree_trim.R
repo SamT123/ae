@@ -61,23 +61,27 @@ main = function() {
   # specify trim ----------------------------------------------------
   if (subtype == "h3") {
     trim = T
-    strain = "COTE_DIVOIRE/1904/2022"
     mutation = "223V"
+    required_mutations = list() # list(list(at = 100, to = "T"), list(at = ...))
+    forbidden_mutations = list()
     min_tips = 15000
   } else if (subtype == "h1") {
     trim = F
-    strain = NA_character_
-    mutation = NA_character_
+    mutation = NA
+    required_mutations = list()
+    forbidden_mutations = list()
     min_tips = 0
   } else if (subtype == "bvic") {
     trim = T
-    strain = "OMAN/2651/2019"
     mutation = "127T"
+    required_mutations = list()
+    forbidden_mutations = list()
     min_tips = 15000
   } else if (subtype == "byam") {
     trim = F
-    strain = NA_character_
-    mutation = NA_character_
+    mutation = NA
+    required_mutations = list()
+    forbidden_mutations = list()
     min_tips = 0
   } else {
     stop("Invalid subtype ", subtype)
@@ -112,41 +116,37 @@ main = function() {
       castor::count_tips_per_node(usher_tree_and_sequences$tree)
     )
 
-    strain_fullname = usher_tree_and_sequences$tree$tip.label[
-      stringr::str_detect(
-        usher_tree_and_sequences$tree$tip.label,
-        stringr::fixed(strain)
-      )
-    ]
+    tree_tibble_mutation_occs = usher_tree_and_sequences$tree_tibble %>%
+      filter(
+        map_lgl(aa_mutations_nonsyn, ~mutation %in% str_sub(.x, 2)),
+        nd >= min_tips
+      ) %>%
+      arrange(-nd)
 
-    parents = rev(convergence:::getParents(
-      usher_tree_and_sequences$tree_tibble,
-      which(usher_tree_and_sequences$tree_tibble$label == strain_fullname)
-    ))
+    for (r_m in required_mutations){
+      at = as.integer(r_m[["at"]])
+      to = r_m[["to"]]
+      tree_tibble_mutation_occs = tree_tibble_mutation_occs %>%
+        filter(substr(reconstructed_aa_sequence, at, at) == to)
+    }
 
-    parents_mutations = usher_tree_and_sequences$tree_tibble$aa_mutations[
-      parents
-    ]
+    for (f_m in required_mutations){
+      at = as.integer(f_m[["at"]])
+      to = f_m[["to"]]
+      tree_tibble_mutation_occs = tree_tibble_mutation_occs %>%
+        filter(substr(reconstructed_aa_sequence, at, at) != to)
+    }
 
-    ancestor = parents[
-      purrr::map_lgl(
-        parents_mutations,
-        ~ any(stringr::str_detect(.x, stringr::fixed(mutation)))
-      )
-    ]
+    if (nrow(tree_tibble_mutation_occs) != 1){
+      stop("No tree branches fulfilling specification found ")
+    }
+
+    ancestor = tree_tibble_mutation_occs$node[[1]]
 
     trimmed_phy = castor::get_subtree_at_node(
       usher_tree_and_sequences$tree,
       ancestor - ape::Ntip(usher_tree_and_sequences$tree)
     )$subtree
-
-    if (ape::Ntip(trimmed_phy) < min_tips) {
-      stop(
-        "Fewer than `min_tips (= ",
-        min_tips,
-        ") tips in trimmed phylogeny. Perhaps the wrogn branch was found?"
-      )
-    }
 
     trimmed_phy = ape::ladderize(trimmed_phy, right = F)
     trimmed_phy$edge.length = trimmed_phy$edge.length / mean(nchar(fa)) # per nt
