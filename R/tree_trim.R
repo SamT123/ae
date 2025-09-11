@@ -54,7 +54,7 @@ main = function() {
     fs::path_ext(infasta)
   )
 
-  if (all(fs::file_exists(outphy, outphy.txt, outfasta))) {
+  if (all(fs::file_exists(c(outphy, outphy.txt, outfasta)))) {
     message("All output files already exist. Not remaking.")
   }
 
