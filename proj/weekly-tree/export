@@ -105,6 +105,10 @@ def bvic(subtype: str, args: argparse.Namespace):
             # 2025-0723
             "ODISHA/1421/2023_6422458A",
             # 2025-0729 no exclusions
+            # 2025-0818
+            "INDIA/PUD-NIV25-1188/2025_MDCK3_935FB615",
+            # 2025-0827 no exclusions
+            # 2025-0910 no exclusions
              ])
         .include_name(outgroup)    # outgroup BRISBANE/60/2008, B/CHONGQING BANAN/1840/2017 (V1A)
         .remove_hash_duplicates()
@@ -356,6 +360,17 @@ def h1(subtype: str, args: argparse.Namespace):
             "MOROCCO/1168/2025_OR_910D767C",
             # 2025-0729
             "ARKHANGELSK/RII-MH246940S/2025_OR_78BF9CC7",
+            # 2025-0818
+            "CATALONIA/NSVH161521968/2025_OR_A0FA1338",
+            "CAMBODIA/NPH250451/2025_OR_3F664AAE",
+            "CAMBODIA/IAHC250237/2025_OR_E4433FD6",
+            "VALENCIA/VAHNSI-GIHSN-09_0742/2025_OR_30A76211",
+            "SAO_PAULO/CEVI_2500217/2025_OR_A0D5251B",
+            "SAO_PAULO/CEVI_2500207/2025_OR_3C666E5E",
+            "HONG_KONG/F40/2024_OR_94A307F6",
+            # 2025-0827
+            "KRASNOGORSK/RII-MH248987S/2025_OR_CA8C4660",
+            # 2025-0910 no exclusions
         ])
         .remove_hash_duplicates()
         .replace_with_master()
@@ -641,7 +656,16 @@ def h3(subtype: str, args: argparse.Namespace):
             "PERU/LIM-UPCH-4915/2025_1E953D52",
             # 2025-0729 no exclusions
             # 2025-0818
-            "INDIA/PUD-NIV25-1188/2025_MDCK3_935FB615",
+            "INDIA/BHO-NIV25-1226/2025_MDCK1_2E99D391",
+            "INDIA/PUD-NIV25-1183/2025_MDCK4_1BD68829",
+            "INDIA/JAI-NIV25-1120/2025_MDCK1_9051692B",
+            "ALBANIA/310569/2025_SIAT1_A284C73A",
+            "SWINE/OHIO/A02858604/2025_OR_3F9C4EB8",
+            "SWINE/NORTH_CAROLINA/A02979483/2025_OR_9F18313D",
+            "SWINE/IOWA/A02858606/2025_OR_8367F95A",
+            "SWINE/IOWA/A02858602/2025_OR_6B07CDAC",
+            "SWINE/MINNESOTA/A02858601/2025_OR_8A30B201",
+            "SWINE/MINNESOTA/A02979412/2025_OR_1838EF26",
             # 2025-0827 no exclusions
             # 2025-0910 no exclusions
         ])
