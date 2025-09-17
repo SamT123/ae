@@ -640,6 +640,10 @@ def h3(subtype: str, args: argparse.Namespace):
             "SOUTH_AFRICA/NHLS-UCT-CERI-C067966/2025_EE268891",
             "PERU/LIM-UPCH-4915/2025_1E953D52",
             # 2025-0729 no exclusions
+            # 2025-0818
+            "INDIA/PUD-NIV25-1188/2025_MDCK3_935FB615",
+            # 2025-0827 no exclusions
+            # 2025-0910 no exclusions
         ])
         .remove_hash_duplicates()
         .replace_with_master()
